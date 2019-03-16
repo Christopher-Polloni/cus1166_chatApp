@@ -57,6 +57,10 @@
     padding-top: 40px;
     padding-left: 400px;
   }
+  h3{
+    text-align: center;
+    padding-left: 250px;
+  }
 
   img{
     float: left;
@@ -65,12 +69,6 @@
     max-width: 10%;
     max-height: 10%;
   }
-  form{
-    width: 300px;
-    padding-top: 40px;
-    padding-left: 725px;
-    text-align: center;
- }
  input {
    font-size: 25px;
    text-align: left;
@@ -84,7 +82,10 @@
       <!-- <img class="sidenav pic" src="tclogo.jpg" alt= "TC Logo"></> -->
       <b>{{workspace.workspaceName}}</b>
       {% if current_user.id == workspace.owner %}
-      Invite Code: {{workspace.code}}<br><br>
+      Invite Code: {{workspace.code}}
+      <form action="{{ url_for('newcode', workspaceId = workspace.id) }}" method="post">
+        <button type="Submit"> Generate New Code </button>
+      </form>
       {% endif%}
       <c>Subgroups <a href="{{ url_for('add_subgroup', workspaceId = workspace.id) }}"> Add subgroup here!</a></c>
       <span style="font-size:25px;">
@@ -107,6 +108,8 @@
 
     <div class="content">
     	<h1> Welcome to your workspace!</h1>
+      <h3>
+    </h3>
     </div>
   </body>
   </html>
