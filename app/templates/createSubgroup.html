@@ -23,7 +23,7 @@
     font-family: 'PT Sans' sans-serif;
     text-decoration: none;
     display: block;
-    padding-top: 50px;
+    padding-top: 20px;
   }
   .sidenav b {
     color: white;
@@ -42,23 +42,6 @@
     text-decoration: none;
     display: block;
     padding-top: 45px;
-  }
-  .footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: #B0C4DE;
-   color: white;
-   text-align: left;
-}
-  .content{
-    position: static;
-    padding-left: 275px;
-    top: 0;
-    width: 100%;
-    color: black;
-    text-align: left;
   }
   h1{
     font size: 60px;
@@ -83,38 +66,37 @@
     max-height: 10%;
   }
   form{
-    width: 400px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 300px;
+    width: 300px;
+    padding-top: 40px;
+    padding-left: 725px;
     text-align: center;
  }
  input {
-   font-size: 20px;
+   font-size: 25px;
    text-align: left;
-   width: 100px;
  }
   </style>
   </head>
   <body>
 
     <div class="sidenav">
-      <a href="{{ url_for('index')}}"><img border="0" alt="TC Logo" src="tclogo.png" width="50" height="50"></a><br>
-      <!-- <img class="sidenav pic" src="tclogo.jpg" alt= "TC Logo"></> -->
-      <c></c>
-      <a href="{{ url_for('workspace', workspaceId = workspace.id) }}">{{workspace.workspaceName}}</a>
-      <c>{{subgroup.name}}</c>
+      <img class="sidenav pic" src="tclogo.jpg" alt= "TC Logo"></>
+      <a href="{{ url_for('workspace', workspaceId = workspace.id) }}"> <b>{{workspace.workspaceName}}</b></a>
+      <c>Subgroups</c>
+      <span style="font-size:25px;">
+        {% for s in subgroups %}
+          <a href="{{ url_for('subgroup', workspaceId = workspace.id, subgroupId = s.id) }}"> {{s.name}}</a>
+        {% endfor %}
+      </span>
+    </a>
     </div>
 
     <div class="content">
-      {% for m in messages %}
-        {{m.message}}<br>
-      {% endfor %}
-    </div>
-
-    <div class="footer">
-      <form action="{{ url_for('subgroup', workspaceId = workspace.id, subgroupId = subgroup.id) }}" method="post">
-        <input type="text" name="message"><input type="submit">
+      <h1> Create a new subgroup</h1>
+      <h2> Please enter the name of your new subgroup.</h2>
+      <form action="{{ url_for('add_subgroup', workspaceId = workspace.id) }}" method="post">
+        <input type="text" name="subgroupName" placeholder="type here ..">
+        <button type="Submit"> Submit</button>
       </form>
     </div>
   </body>
